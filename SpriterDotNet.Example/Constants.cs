@@ -13,9 +13,10 @@ namespace SpriterDotNet.Example
         public static readonly List<string> ScmlFiles = new List<string>
         {
             "AtlasExample/0",
-            "GreyGuy/player",
+            "GreyGuy/player2",
             "TestSquares/squares",
-            "GreyGuyPlus/player_006"
+            "GreyGuyPlus/player_006",
+            "WeeKnights/knight_acid_new_grave_remix"
         };
 
         public static readonly List<string> KeyBindingsList = new List<string>

@@ -50,9 +50,9 @@ namespace SpriterDotNet.Providers
         /// <summary>
         /// Returns the pre-calculated FrameData or newly calculated in case of blending.
         /// </summary>
-        public override FrameData GetFrameData(float time, float deltaTime, float factor, SpriterAnimation first, SpriterAnimation second = null)
+        public override FrameData GetFrameData(float time, float deltaTime, float factor, SpriterAnimation first, SpriterAnimation second = null, float transitionTime = 0)
         {
-            if (Data == null || second != null) return base.GetFrameData(time, deltaTime, factor, first, second);
+            if (Data == null || second != null) return base.GetFrameData(time, deltaTime, factor, first, second, transitionTime);
 
             FrameData[] animData = Data[first.Name];
             int index = (int)(time / first.Length * animData.Length);

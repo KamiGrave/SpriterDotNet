@@ -197,9 +197,10 @@ namespace SpriterDotNet
                 factor = transitionTime / totalTransitionTime;
                 if (transitionTime >= totalTransitionTime)
                 {
-                    float progress = Progress;
+                    //float progress = Progress;
                     Play(NextAnimation.Name);
-                    Progress = progress;
+                    Time = transitionTime;
+                    //Progress = progress;
                     NextAnimation = null;
                 }
             }
@@ -227,7 +228,7 @@ namespace SpriterDotNet
         /// </summary>
         protected virtual void Animate(float deltaTime)
         {
-            FrameData = DataProvider.GetFrameData(Time, deltaTime, factor, CurrentAnimation, NextAnimation);
+            FrameData = DataProvider.GetFrameData(Time, deltaTime, factor, CurrentAnimation, NextAnimation, transitionTime);
 
             for (int i = 0; i < FrameData.SpriteData.Count; ++i)
             {

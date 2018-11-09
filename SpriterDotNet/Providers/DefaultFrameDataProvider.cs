@@ -24,9 +24,9 @@ namespace SpriterDotNet.Providers
             Calculator = new FrameDataCalculator(config, pool);
         }
 
-        public virtual FrameData GetFrameData(float time, float deltaTime, float factor, SpriterAnimation first, SpriterAnimation second = null)
+        public virtual FrameData GetFrameData(float time, float deltaTime, float factor, SpriterAnimation first, SpriterAnimation second = null, float transitionTime = 0)
         {
-            return second == null ? Calculator.GetFrameData(first, time, deltaTime) : Calculator.GetFrameData(first, second, time, deltaTime, factor);
+            return second == null ? Calculator.GetFrameData(first, time, deltaTime) : Calculator.GetFrameData(first, second, time, deltaTime, transitionTime, factor);
         }
     }
 }

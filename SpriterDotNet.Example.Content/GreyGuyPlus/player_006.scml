@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r4.1">
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
     <folder id="0" name="torso">
         <file id="0" name="torso/p_torso_idle.png" width="88" height="88" pivot_x="0.911111" pivot_y="0.555556"/>
         <file id="1" name="torso/p_torso_walk.png" width="88" height="88" pivot_x="0.911111" pivot_y="0.555556"/>
@@ -1823,16 +1823,18 @@
             </timeline>
             <soundline id="-1" name="beep-03">
                 <key id="0">
-                    <object folder="0" file="5" />
+                    <object folder="0" file="5"/>
                 </key>
                 <key id="1" time="2146">
                     <object folder="0" file="5"/>
                 </key>
             </soundline>
             <eventline id="0" name="testTrigger">
-                <key id="0" time="413"/>
-                <key id="1" time="1063"/>
-                <key id="2" time="2814"/>
+                <key id="0" time="71"/>
+                <key id="1" time="198"/>
+                <key id="2" time="413"/>
+                <key id="3" time="1063"/>
+                <key id="4" time="2814"/>
             </eventline>
             <meta>
                 <varline id="0" def="0">

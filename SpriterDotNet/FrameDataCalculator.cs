@@ -5,6 +5,7 @@
 
 using SpriterDotNet.Helpers;
 using System;
+using System.Diagnostics;
 
 namespace SpriterDotNet
 {
@@ -21,7 +22,7 @@ namespace SpriterDotNet
             FrameData = new FrameData(pool);
         }
 
-        public virtual FrameData GetFrameData(SpriterAnimation first, SpriterAnimation second, float targetTime, float deltaTime, float factor)
+        public virtual FrameData GetFrameData(SpriterAnimation first, SpriterAnimation second, float targetTime, float deltaTime, float transitionTime, float factor)
         {
             FrameData.Clear();
 
@@ -31,7 +32,7 @@ namespace SpriterDotNet
                 return FrameData;
             }
 
-            float targetTimeSecond = targetTime / first.Length * second.Length;
+            float targetTimeSecond = transitionTime;
 
             SpriterMainlineKey firstKeyA;
             SpriterMainlineKey firstKeyB;
@@ -94,7 +95,11 @@ namespace SpriterDotNet
             Pool.ReturnObject(boneInfosB);
             Pool.ReturnObject(boneInfos);
 
-            if (Config.MetadataEnabled) UpdateMetadata(currentAnimation, targetTime, deltaTime);
+            if (Config.MetadataEnabled)
+            {
+                UpdateMetadata(first, targetTime, deltaTime);
+                UpdateMetadata(second, targetTimeSecond, deltaTime);
+            }
 
             return FrameData;
         }
@@ -251,7 +256,9 @@ namespace SpriterDotNet
                 for (int j = 0; j < eventline.Keys.Length; ++j)
                 {
                     SpriterKey key = eventline.Keys[j];
-                    if (IsTriggered(key, targetTime, previousTime, animation.Length)) FrameData.Events.Add(eventline.Name);
+                    if (IsTriggered(key, targetTime, previousTime, animation.Length))
+                        Debug.WriteLine("Adding event: " + eventline.Name);
+                        FrameData.Events.Add(eventline.Name);
                 }
             }
         }

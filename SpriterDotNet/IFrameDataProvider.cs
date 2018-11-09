@@ -7,6 +7,6 @@ namespace SpriterDotNet
 {
     public interface IFrameDataProvider
     {
-        FrameData GetFrameData(float time, float deltaTime, float factor, SpriterAnimation first, SpriterAnimation second = null);
+        FrameData GetFrameData(float time, float deltaTime, float factor, SpriterAnimation first, SpriterAnimation second = null, float transitionTime = 0);
     }
 }

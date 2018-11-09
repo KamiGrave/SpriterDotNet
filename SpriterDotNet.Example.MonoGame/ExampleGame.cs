@@ -77,7 +77,10 @@ namespace SpriterDotNet.Example.MonoGame
                     var animator = new MonoGameDebugAnimator(entity, GraphicsDevice, factory, drawInfoPool);
                     animators.Add(animator);
                     animator.Position = screenCentre;
-                    animator.EventTriggered += x => Debug.WriteLine("Event Happened: " + x);
+                    animator.EventTriggered += x =>
+                    {
+                        Debug.WriteLine("Event Happened: " + x);
+                    };
                 }
             }
 
@@ -89,6 +92,8 @@ namespace SpriterDotNet.Example.MonoGame
             base.Update(gameTime);
             float deltaTime = gameTime.ElapsedGameTime.Ticks / (float)TimeSpan.TicksPerMillisecond;
 
+            deltaTime = Math.Min(deltaTime, 1000.0f / 60.0f);
+
             stats.OnUpdate(deltaTime);
             Vector2 scale = animator.Scale;
 
@@ -98,7 +103,7 @@ namespace SpriterDotNet.Example.MonoGame
             if (WasPressed(Keys.P)) animator.ChangeAnimationSpeed(0.2f, 5.0f);
             if (WasPressed(Keys.R)) animator.Speed = -animator.Speed;
             if (WasPressed(Keys.X)) animator.Play(animator.Name);
-            if (WasPressed(Keys.T)) animator.Transition(animator.GetNextAnimation(), 1000.0f);
+            if (WasPressed(Keys.T)) animator.Transition(animator.GetNextAnimation(), 600.0f);
             if (WasPressed(Keys.C)) animator.PushNextCharacterMap();
             if (WasPressed(Keys.V)) animator.PopCharacterMap();
             if (WasPressed(Keys.J)) animator.Color = animator.Color == Color.White ? Color.Red : Color.White;
