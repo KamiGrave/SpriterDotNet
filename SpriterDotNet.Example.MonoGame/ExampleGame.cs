@@ -103,7 +103,7 @@ namespace SpriterDotNet.Example.MonoGame
             if (WasPressed(Keys.P)) animator.ChangeAnimationSpeed(0.2f, 5.0f);
             if (WasPressed(Keys.R)) animator.Speed = -animator.Speed;
             if (WasPressed(Keys.X)) animator.Play(animator.Name);
-            if (WasPressed(Keys.T)) animator.Transition(animator.GetNextAnimation(), 600.0f);
+            if (WasPressed(Keys.T)) animator.Transition(animator.GetNextAnimation(), 100.0f);
             if (WasPressed(Keys.C)) animator.PushNextCharacterMap();
             if (WasPressed(Keys.V)) animator.PopCharacterMap();
             if (WasPressed(Keys.J)) animator.Color = animator.Color == Color.White ? Color.Red : Color.White;

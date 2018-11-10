@@ -257,8 +257,10 @@ namespace SpriterDotNet
                 {
                     SpriterKey key = eventline.Keys[j];
                     if (IsTriggered(key, targetTime, previousTime, animation.Length))
+                    {
                         Debug.WriteLine("Adding event: " + eventline.Name);
                         FrameData.Events.Add(eventline.Name);
+                    }
                 }
             }
         }

@@ -191,7 +191,7 @@ namespace SpriterDotNet
 
             if (NextAnimation != null && totalTransitionTime != 0.0f)
             {
-                elapsed += elapsed * factor * CurrentAnimation.Length / NextAnimation.Length;
+                //elapsed += elapsed * factor * CurrentAnimation.Length / NextAnimation.Length;
 
                 transitionTime += Math.Abs(elapsed);
                 factor = transitionTime / totalTransitionTime;
