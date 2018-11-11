@@ -17,8 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
-    <PackageReference Include="MonoGame.Framework.Content.Pipeline.Portable" Version="3.6.0.1625" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="MonoGame.Framework.Content.Pipeline.Portable" Version="3.7.0.1708" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
   </ItemGroup>
 
@@ -26,5 +26,9 @@
     <ProjectReference Include="..\SpriterDotNet.MonoGame\SpriterDotNet.MonoGame.csproj" />
     <ProjectReference Include="..\SpriterDotNet\SpriterDotNet.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;$(SolutionDir)SpriterDotNet.Example.Content\Lib\$(ProjectName).dll&quot;" />
+  </Target>
 
 </Project>

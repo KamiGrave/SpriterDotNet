@@ -13,8 +13,9 @@
 /reference:Lib\Newtonsoft.Json.dll
 /reference:Lib\System.IO.FileSystem.dll
 /reference:Lib\System.Xml.ReaderWriter.dll
-/reference:..\SpriterDotNet.MonoGame.Importer\bin\Debug\netstandard1.4\SpriterDotNet.MonoGame.Importer.dll
-/reference:..\SpriterDotNet.MonoGame.Importer\bin\Release\netstandard1.4\SpriterDotNet.MonoGame.Importer.dll
+/reference:Lib\SpriterDotNet.dll
+/reference:Lib\SpriterDotNet.MonoGame.dll
+/reference:Lib\SpriterDotNet.MonoGame.Importer.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -824,11 +825,6 @@
 /importer:SpriterImporter
 /processor:PassThroughProcessor
 /build:GreyGuy/player.scml
-
-#begin GreyGuy/player2.scml
-/importer:
-/processor:
-/build:GreyGuy/player2.scml
 
 #begin GreyGuy/torso/p_torso_front.png
 /importer:TextureImporter
@@ -2006,13 +2002,13 @@
 /build:WeeKnights/Helmet.png
 
 #begin WeeKnights/knight_acid_new_grave_remix.autosave.scml
-/importer:
-/processor:
+/importer:SpriterImporter
+/processor:PassThroughProcessor
 /build:WeeKnights/knight_acid_new_grave_remix.autosave.scml
 
 #begin WeeKnights/knight_acid_new_grave_remix.scml
-/importer:
-/processor:
+/importer:SpriterImporter
+/processor:PassThroughProcessor
 /build:WeeKnights/knight_acid_new_grave_remix.scml
 
 #begin WeeKnights/Konrad/Plume.png
