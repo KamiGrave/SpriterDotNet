@@ -12,7 +12,9 @@ namespace SpriterDotNet
     public class FrameDataCalculator
     {
         protected FrameData FrameData { get; set; }
+
         protected Config Config { get; set; }
+
         protected ObjectPool Pool { get; set; }
 
         public FrameDataCalculator(Config config, ObjectPool pool)
@@ -34,13 +36,9 @@ namespace SpriterDotNet
 
             float targetTimeSecond = transitionTime;
 
-            SpriterMainlineKey firstKeyA;
-            SpriterMainlineKey firstKeyB;
-            GetMainlineKeys(first.MainlineKeys, targetTime, out firstKeyA, out firstKeyB);
+            GetMainlineKeys(first.MainlineKeys, targetTime, out var firstKeyA, out var firstKeyB);
 
-            SpriterMainlineKey secondKeyA;
-            SpriterMainlineKey secondKeyB;
-            GetMainlineKeys(second.MainlineKeys, targetTimeSecond, out secondKeyA, out secondKeyB);
+            GetMainlineKeys(second.MainlineKeys, targetTimeSecond, out var secondKeyA, out var secondKeyB);
 
             if (!SpriterHelper.WillItBlend(firstKeyA, secondKeyA) || !SpriterHelper.WillItBlend(firstKeyB, secondKeyB))
             {
@@ -54,6 +52,7 @@ namespace SpriterDotNet
             SpriterSpatial[] boneInfosA = GetBoneInfos(firstKeyA, first, adjustedTimeFirst);
             SpriterSpatial[] boneInfosB = GetBoneInfos(secondKeyA, second, adjustedTimeSecond);
             SpriterSpatial[] boneInfos = null;
+
             if (boneInfosA != null && boneInfosB != null)
             {
                 boneInfos = Pool.GetArray<SpriterSpatial>(boneInfosA.Length);
@@ -83,7 +82,10 @@ namespace SpriterDotNet
                 info.PivotX = MathHelper.Linear(interpolatedFirst.PivotX, interpolatedSecond.PivotX, factor);
                 info.PivotY = MathHelper.Linear(interpolatedFirst.PivotY, interpolatedSecond.PivotY, factor);
 
-                if (boneInfos != null && objectRefFirst.ParentId >= 0) info.ApplyParentTransform(boneInfos[objectRefFirst.ParentId]);
+                if (boneInfos != null && objectRefFirst.ParentId >= 0)
+                {
+                    info.ApplyParentTransform(boneInfos[objectRefFirst.ParentId]);
+                }
 
                 AddSpatialData(info, currentAnimation.Timelines[objectRefFirst.TimelineId], currentAnimation.Entity.Spriter, deltaTime);
 
@@ -106,11 +108,12 @@ namespace SpriterDotNet
 
         public virtual FrameData GetFrameData(SpriterAnimation animation, float targetTime, float deltaTime, SpriterSpatial parentInfo = null)
         {
-            if (parentInfo == null) FrameData.Clear();
+            if (parentInfo == null)
+            {
+                FrameData.Clear();
+            }
 
-            SpriterMainlineKey keyA;
-            SpriterMainlineKey keyB;
-            GetMainlineKeys(animation.MainlineKeys, targetTime, out keyA, out keyB);
+            GetMainlineKeys(animation.MainlineKeys, targetTime, out var keyA, out var keyB);
 
             float adjustedTime = SpriterHelper.AdjustTime(targetTime, keyA, keyB, animation.Length);
 
@@ -141,9 +144,20 @@ namespace SpriterDotNet
 
         protected virtual void UpdateMetadata(SpriterAnimation animation, float targetTime, float deltaTime, SpriterSpatial parentInfo = null)
         {
-            if (Config.VarsEnabled || Config.TagsEnabled) AddVariableAndTagData(animation, targetTime);
-            if (Config.EventsEnabled) AddEventData(animation, targetTime, deltaTime);
-            if (Config.SoundsEnabled) AddSoundData(animation, targetTime, deltaTime);
+            if (Config.VarsEnabled || Config.TagsEnabled)
+            {
+                AddVariableAndTagData(animation, targetTime);
+            }
+
+            if (Config.EventsEnabled)
+            {
+                AddEventData(animation, targetTime, deltaTime);
+            }
+
+            if (Config.SoundsEnabled)
+            {
+                AddSoundData(animation, targetTime, deltaTime);
+            }
         }
 
         protected virtual void AddVariableAndTagData(SpriterAnimation animation, float targetTime)
@@ -162,10 +176,10 @@ namespace SpriterDotNet
 
             SpriterElement[] tags = animation.Entity.Spriter.Tags;
             SpriterTagline tagline = animation.Meta.Tagline;
-            if (Config.TagsEnabled && tagline != null && tagline.Keys != null && tagline.Keys.Length > 0)
+            if (Config.TagsEnabled && tagline?.Keys?.Length > 0)
             {
                 SpriterTaglineKey key = tagline.Keys.GetLastKey(targetTime);
-                if (key != null && key.Tags != null)
+                if (key?.Tags != null)
                 {
                     for (int i = 0; i < key.Tags.Length; ++i)
                     {
@@ -179,7 +193,11 @@ namespace SpriterDotNet
             {
                 SpriterTimeline timeline = animation.Timelines[i];
                 SpriterMeta meta = timeline.Meta;
-                if (meta == null) continue;
+
+                if (meta == null)
+                {
+                    continue;
+                }
 
                 SpriterObjectInfo objInfo = GetObjectInfo(animation, timeline.Name);
 
@@ -193,10 +211,10 @@ namespace SpriterDotNet
                     }
                 }
 
-                if (Config.TagsEnabled && meta.Tagline != null && meta.Tagline.Keys != null && meta.Tagline.Keys.Length > 0)
+                if (Config.TagsEnabled && meta.Tagline?.Keys?.Length > 0)
                 {
-                    SpriterTaglineKey key = tagline.Keys.GetLastKey(targetTime);
-                    if (key != null && key.Tags != null)
+                    SpriterTaglineKey key = tagline?.Keys.GetLastKey(targetTime);
+                    if (key?.Tags != null)
                     {
                         for (int j = 0; j < key.Tags.Length; ++j)
                         {
@@ -211,9 +229,11 @@ namespace SpriterDotNet
         protected virtual SpriterObjectInfo GetObjectInfo(SpriterAnimation animation, string name)
         {
             SpriterObjectInfo objInfo = null;
+
             for (int i = 0; i < animation.Entity.ObjectInfos.Length; ++i)
             {
                 SpriterObjectInfo info = animation.Entity.ObjectInfos[i];
+
                 if (info.Name == name)
                 {
                     objInfo = info;
@@ -227,15 +247,25 @@ namespace SpriterDotNet
         protected virtual SpriterVarValue GetVariableValue(SpriterAnimation animation, SpriterVarDef varDef, SpriterVarline varline, float targetTime)
         {
             SpriterVarlineKey[] keys = varline.Keys;
-            if (keys == null) return varDef.VariableValue;
+
+            if (keys == null)
+            {
+                return varDef.VariableValue;
+            }
 
             SpriterVarlineKey keyA = keys.GetLastKey(targetTime) ?? keys[keys.Length - 1];
 
-            if (keyA == null) return varDef.VariableValue;
+            if (keyA == null)
+            {
+                return varDef.VariableValue;
+            }
 
             SpriterVarlineKey keyB = varline.Keys.GetNextKey(keyA, animation.Looping);
 
-            if (keyB == null) return keyA.VariableValue;
+            if (keyB == null)
+            {
+                return keyA.VariableValue;
+            }
 
             float adjustedTime = keyA.Time == keyB.Time ? targetTime : SpriterHelper.AdjustTime(targetTime, keyA, keyB, animation.Length);
             float factor = SpriterHelper.GetFactor(keyA, keyB, animation.Length, adjustedTime);
@@ -369,7 +399,10 @@ namespace SpriterDotNet
             SpriterTimelineKey keyA = keys[spriterRef.KeyId];
             SpriterTimelineKey keyB = keys.GetNextKey(keyA, animation.Looping);
 
-            if (keyB == null) return Copy(keyA.ObjectInfo);
+            if (keyB == null)
+            {
+                return Copy(keyA.ObjectInfo);
+            }
 
             float factor = SpriterHelper.GetFactor(keyA, keyB, animation.Length, targetTime);
             return Interpolate(keyA.ObjectInfo, keyB.ObjectInfo, factor, keyA.Spin);

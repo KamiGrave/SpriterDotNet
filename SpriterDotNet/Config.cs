@@ -5,31 +5,39 @@
 
 namespace SpriterDotNet
 {
+    /// <summary>
+    /// Spriter config file.
+    /// </summary>
     public class Config
     {
         /// <summary>
         /// Enables ALL metadata calculations.
         /// </summary>
-        public bool MetadataEnabled { get; set; }
+        public bool MetadataEnabled { get; set; } = true;
 
-        public bool VarsEnabled { get; set; }
-        public bool TagsEnabled { get; set; }
-        public bool EventsEnabled { get; set; }
-        public bool SoundsEnabled { get; set; }
+        /// <summary>
+        /// Enables vars.
+        /// </summary>
+        public bool VarsEnabled { get; set; } = true;
+
+        /// <summary>
+        /// Enables tags.
+        /// </summary>
+        public bool TagsEnabled { get; set; } = true;
+
+        /// <summary>
+        /// Enables events.
+        /// </summary>
+        public bool EventsEnabled { get; set; } = true;
+
+        /// <summary>
+        /// Enables sounds.
+        /// </summary>
+        public bool SoundsEnabled { get; set; } = true;
 
         /// <summary>
         /// Enables object pooling.
         /// </summary>
-        public bool PoolingEnabled { get; set; }
-
-        public Config()
-        {
-            MetadataEnabled = true;
-            VarsEnabled = true;
-            TagsEnabled = true;
-            EventsEnabled = true;
-            SoundsEnabled = true;
-            PoolingEnabled = true;
-        }
+        public bool PoolingEnabled { get; set; } = true;
     }
 }

@@ -29,12 +29,7 @@ namespace SpriterDotNet
         public SpriterFile[] Files;
 
         [XmlAttribute("atlas")]
-        public int AtlasId;
-
-        public SpriterFolder()
-        {
-            AtlasId = -1;
-        }
+        public int AtlasId = -1;
     }
 
     public class SpriterFile : SpriterElement
@@ -43,22 +38,16 @@ namespace SpriterDotNet
         public SpriterFileType Type;
 
         [XmlAttribute("pivot_x")]
-        public float PivotX;
+        public float PivotX = 0f;
 
         [XmlAttribute("pivot_y")]
-        public float PivotY;
+        public float PivotY = 1f;
 
         [XmlAttribute("width")]
         public int Width;
 
         [XmlAttribute("height")]
         public int Height;
-
-        public SpriterFile()
-        {
-            PivotX = 0f;
-            PivotY = 1f;
-        }
     }
 
     public class SpriterEntity : SpriterElement
@@ -107,7 +96,7 @@ namespace SpriterDotNet
         public float Length;
 
         [XmlAttribute("looping")]
-        public bool Looping;
+        public bool Looping = true;
 
         [XmlArray("mainline"), XmlArrayItem("key")]
         public SpriterMainlineKey[] MainlineKeys;
@@ -123,11 +112,6 @@ namespace SpriterDotNet
 
         [XmlElement("meta")]
         public SpriterMeta Meta;
-
-        public SpriterAnimation()
-        {
-            Looping = true;
-        }
     }
 
     public class SpriterMainlineKey : SpriterKey
@@ -142,18 +126,13 @@ namespace SpriterDotNet
     public class SpriterRef : SpriterElement
     {
         [XmlAttribute("parent")]
-        public int ParentId;
+        public int ParentId = -1;
 
         [XmlAttribute("timeline")]
         public int TimelineId;
 
         [XmlAttribute("key")]
         public int KeyId;
-
-        public SpriterRef()
-        {
-            ParentId = -1;
-        }
     }
 
     public class SpriterObjectRef : SpriterRef
@@ -180,18 +159,13 @@ namespace SpriterDotNet
     public class SpriterTimelineKey : SpriterKey
     {
         [XmlAttribute("spin")]
-        public int Spin;
+        public int Spin = 1;
 
         [XmlElement("bone", typeof(SpriterSpatial))]
         public SpriterSpatial BoneInfo;
 
         [XmlElement("object", typeof(SpriterObject))]
         public SpriterObject ObjectInfo;
-
-        public SpriterTimelineKey()
-        {
-            Spin = 1;
-        }
     }
 
     public class SpriterSpatial
@@ -206,20 +180,13 @@ namespace SpriterDotNet
         public float Angle;
 
         [XmlAttribute("scale_x")]
-        public float ScaleX;
+        public float ScaleX = 1;
 
         [XmlAttribute("scale_y")]
-        public float ScaleY;
+        public float ScaleY = 1;
 
         [XmlAttribute("a")]
-        public float Alpha;
-
-        public SpriterSpatial()
-        {
-            ScaleX = 1;
-            ScaleY = 1;
-            Alpha = 1;
-        }
+        public float Alpha = 1;
     }
 
     public class SpriterObject : SpriterSpatial
@@ -237,19 +204,13 @@ namespace SpriterDotNet
         public int FileId;
 
         [XmlAttribute("pivot_x")]
-        public float PivotX;
+        public float PivotX = float.NaN;
 
         [XmlAttribute("pivot_y")]
-        public float PivotY;
+        public float PivotY = float.NaN;
 
         [XmlAttribute("t")]
         public float T;
-
-        public SpriterObject()
-        {
-            PivotX = float.NaN;
-            PivotY = float.NaN;
-        }
     }
 
     public class SpriterCharacterMap : SpriterElement
@@ -267,16 +228,10 @@ namespace SpriterDotNet
         public int FileId;
 
         [XmlAttribute("target_folder")]
-        public int TargetFolderId;
+        public int TargetFolderId = -1;
 
         [XmlAttribute("target_file")]
-        public int TargetFileId;
-
-        public SpriterMapInstruction()
-        {
-            TargetFolderId = -1;
-            TargetFileId = -1;
-        }
+        public int TargetFileId = -1;
     }
 
     public class SpriterMeta
@@ -371,19 +326,13 @@ namespace SpriterDotNet
         public int FileId;
 
         [XmlAttribute("trigger")]
-        public bool Trigger;
+        public bool Trigger = true;
 
         [XmlAttribute("panning")]
         public float Panning;
 
         [XmlAttribute("volume")]
-        public float Volume;
-
-        public SpriterSound()
-        {
-            Trigger = true;
-            Volume = 1.0f;
-        }
+        public float Volume = 1.0f;
     }
 
     public class SpriterElement
@@ -398,7 +347,7 @@ namespace SpriterDotNet
     public class SpriterKey : SpriterElement
     {
         [XmlAttribute("time")]
-        public float Time;
+        public float Time = 0;
 
         [XmlAttribute("curve_type")]
         public SpriterCurveType CurveType;
@@ -414,11 +363,6 @@ namespace SpriterDotNet
 
         [XmlAttribute("c4")]
         public float C4;
-
-        public SpriterKey()
-        {
-            Time = 0;
-        }
     }
 
     public enum SpriterObjectType

@@ -15,8 +15,7 @@ namespace SpriterDotNet.Providers
         public DefaultFrameDataProvider()
         {
             Config config = new Config();
-            ObjectPool pool = new ObjectPool(config);
-            Calculator = new FrameDataCalculator(config, pool);
+            Calculator = new FrameDataCalculator(config, new ObjectPool(config));
         }
 
         public DefaultFrameDataProvider(Config config, ObjectPool pool)

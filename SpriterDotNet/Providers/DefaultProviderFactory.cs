@@ -15,9 +15,9 @@ namespace SpriterDotNet.Providers
     {
         private const int DefaultInterval = 20;
 
-        protected Dictionary<SpriterEntity, SnapshotFrameDataProvider> AnimProviders { get; set; }
-        protected Dictionary<Spriter, DefaultAssetProvider<TSprite>> SpriteProviders { get; set; }
-        protected Dictionary<Spriter, DefaultAssetProvider<TSound>> SoundProviders { get; set; }
+        protected Dictionary<SpriterEntity, SnapshotFrameDataProvider> AnimProviders { get; set; } = new Dictionary<SpriterEntity, SnapshotFrameDataProvider>();
+        protected Dictionary<Spriter, DefaultAssetProvider<TSprite>> SpriteProviders { get; set; } = new Dictionary<Spriter, DefaultAssetProvider<TSprite>>();
+        protected Dictionary<Spriter, DefaultAssetProvider<TSound>> SoundProviders { get; set; } = new Dictionary<Spriter, DefaultAssetProvider<TSound>>();
 
         protected bool CacheAnimations { get; set; }
         protected int Interval { get; set; }
@@ -40,23 +40,21 @@ namespace SpriterDotNet.Providers
             Interval = interval;
 
             Pool = new ObjectPool(config);
-            AnimProviders = new Dictionary<SpriterEntity, SnapshotFrameDataProvider>();
-            SpriteProviders = new Dictionary<Spriter, DefaultAssetProvider<TSprite>>();
-            SoundProviders = new Dictionary<Spriter, DefaultAssetProvider<TSound>>();
         }
 
         public virtual IFrameDataProvider GetDataProvider(SpriterEntity entity)
         {
             if (!CacheAnimations) return new DefaultFrameDataProvider(Config, Pool);
 
-            SnapshotFrameDataProvider provider;
-            AnimProviders.TryGetValue(entity, out provider);
+            AnimProviders.TryGetValue(entity, out var provider);
+
             if (provider == null)
             {
                 var data = SnapshotFrameDataProvider.Calculate(entity, Interval, Config);
                 provider = new SnapshotFrameDataProvider(Config, Pool, data);
                 AnimProviders[entity] = provider;
             }
+
             return provider;
         }
 

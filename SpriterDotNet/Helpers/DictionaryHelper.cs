@@ -11,17 +11,18 @@ namespace SpriterDotNet.Helpers
     {
         /// <summary>
         /// Returns the existing value from the target dictionary for the given key.
-        /// If the key is not present, it instantiates the value, puts it in the dictionary and returns it.
+        /// If the key is not present, it instantiates a new <see cref="TValue"/>, puts it in the dictionary and returns it.
         /// </summary>
         public static TValue GetOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key) where TValue : class, new()
         {
-            TValue value;
-            dict.TryGetValue(key, out value);
+            dict.TryGetValue(key, out var value);
+
             if (value == null)
             {
                 value = new TValue();
                 dict[key] = value;
             }
+
             return value;
         }
     }

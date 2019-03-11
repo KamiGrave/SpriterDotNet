@@ -51,7 +51,7 @@ namespace SpriterDotNet
         public float Speed { get; set; }
 
         /// <summary>
-        /// The legth of the current animation in milliseconds.
+        /// The length of the current animation in milliseconds.
         /// </summary>
         public float Length { get; protected set; }
 
@@ -70,8 +70,8 @@ namespace SpriterDotNet
         /// </summary>
         public float Progress
         {
-            get { return Time / Length; }
-            set { Time = value * Length; }
+            get => Time / Length;
+            set => Time = value * Length;
         }
 
         /// <summary>
@@ -133,8 +133,7 @@ namespace SpriterDotNet
         /// </summary>
         public virtual void Play(string name)
         {
-            SpriterAnimation animation = Animations[name];
-            Play(animation);
+            Play(Animations[name]);
         }
 
         /// <summary>
@@ -265,14 +264,14 @@ namespace SpriterDotNet
         }
 
         /// <summary>
-        /// Applies the transform to the concrete sprite isntance.
+        /// Applies the transform to the concrete sprite instance.
         /// </summary>
         protected virtual void ApplySpriteTransform(TSprite sprite, SpriterObject info)
         {
         }
 
         /// <summary>
-        /// Plays the concrete sound isntance.
+        /// Plays the concrete sound instance.
         /// </summary>
         protected virtual void PlaySound(TSound sound, SpriterSound info)
         {

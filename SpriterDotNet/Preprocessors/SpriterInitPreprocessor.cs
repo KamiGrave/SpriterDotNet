@@ -19,7 +19,12 @@ namespace SpriterDotNet.Preprocessors
             foreach (SpriterEntity entity in spriter.Entities)
             {
                 entity.Spriter = spriter;
-                if (entity.ObjectInfos == null) entity.ObjectInfos = new SpriterObjectInfo[0];
+
+                if (entity.ObjectInfos == null)
+                {
+                    entity.ObjectInfos = new SpriterObjectInfo[0];
+                }
+
                 foreach (SpriterAnimation animation in entity.Animations)
                 {
                     animation.Entity = entity;
@@ -50,7 +55,7 @@ namespace SpriterDotNet.Preprocessors
 
         protected virtual void InitVarDefs(SpriterAnimation animation)
         {
-            if (animation.Meta != null && animation.Meta.Varlines != null && animation.Meta.Varlines.Length > 0)
+            if (animation.Meta?.Varlines != null && animation.Meta.Varlines.Length > 0)
             {
                 foreach (SpriterVarline varline in animation.Meta.Varlines)
                 {
@@ -61,7 +66,11 @@ namespace SpriterDotNet.Preprocessors
 
             foreach (SpriterTimeline timeline in animation.Timelines)
             {
-                if (timeline.Meta == null || timeline.Meta.Varlines == null || timeline.Meta.Varlines.Length == 0) continue;
+                if (timeline.Meta?.Varlines == null || timeline.Meta.Varlines.Length == 0)
+                {
+                    continue;
+                }
+
                 SpriterObjectInfo objInfo = animation.Entity.ObjectInfos.First(o => o.Name == timeline.Name);
                 foreach (SpriterVarline varline in timeline.Meta.Varlines)
                 {
@@ -74,7 +83,10 @@ namespace SpriterDotNet.Preprocessors
         protected virtual void Init(SpriterVarDef varDef, SpriterVarline varline)
         {
             varDef.VariableValue = GetVarValue(varDef.DefaultValue, varDef.Type);
-            foreach (SpriterVarlineKey key in varline.Keys) key.VariableValue = GetVarValue(key.Value, varDef.Type);
+            foreach (SpriterVarlineKey key in varline.Keys)
+            {
+                key.VariableValue = GetVarValue(key.Value, varDef.Type);
+            }
         }
 
         protected virtual SpriterVarValue GetVarValue(string value, SpriterVarType type)

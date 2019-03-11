@@ -10,7 +10,7 @@ namespace SpriterDotNet.Providers
 {
     public class DefaultAssetProvider<T> : IAssetProvider<T>
     {
-        public SpriterCharacterMap CharacterMap { get { return CharMaps.Count > 0 ? CharMaps.Peek() : null; } }
+        public SpriterCharacterMap CharacterMap => CharMaps.Count > 0 ? CharMaps.Peek() : null;
 
         public Dictionary<int, Dictionary<int, T>> AssetMappings { get; protected set; }
 
@@ -33,7 +33,10 @@ namespace SpriterDotNet.Providers
         public virtual T Get(int folderId, int fileId)
         {
             T asset = GetAsset(folderId, fileId);
-            if (asset == null) return asset;
+            if (asset == null)
+            {
+                return asset;
+            }
 
             if (CharMapValues.ContainsKey(asset))
             {
@@ -48,7 +51,11 @@ namespace SpriterDotNet.Providers
         public virtual KeyValuePair<int, int> GetMapping(int folderId, int fileId)
         {
             T asset = GetAsset(folderId, fileId);
-            if (asset == null || !CharMapValues.ContainsKey(asset)) return new KeyValuePair<int, int>(folderId, fileId);
+            if (asset == null || !CharMapValues.ContainsKey(asset))
+            {
+                return new KeyValuePair<int, int>(folderId, fileId);
+            }
+
             return CharMapValues[asset];
         }
 
@@ -65,7 +72,10 @@ namespace SpriterDotNet.Providers
 
         public virtual void Unswap(T original)
         {
-            if (SwappedAssets.ContainsKey(original)) SwappedAssets.Remove(original);
+            if (SwappedAssets.ContainsKey(original))
+            {
+                SwappedAssets.Remove(original);
+            }
         }
 
         public virtual void PushCharMap(SpriterCharacterMap charMap)
@@ -76,7 +86,11 @@ namespace SpriterDotNet.Providers
 
         public virtual void PopCharMap()
         {
-            if (CharMaps.Count == 0) return;
+            if (CharMaps.Count == 0)
+            {
+                return;
+            }
+
             CharMaps.Pop();
             ApplyCharMap(CharMaps.Count > 0 ? CharMaps.Peek() : null);
         }
@@ -93,7 +107,11 @@ namespace SpriterDotNet.Providers
             {
                 SpriterMapInstruction map = charMap.Maps[i];
                 T sprite = GetAsset(map.FolderId, map.FileId);
-                if (sprite == null) continue;
+
+                if (sprite == null)
+                {
+                    continue;
+                }
 
                 CharMapValues[sprite] = new KeyValuePair<int, int>(map.TargetFolderId, map.TargetFileId);
             }
@@ -101,12 +119,14 @@ namespace SpriterDotNet.Providers
 
         protected virtual T GetAsset(int folderId, int fileId)
         {
-            Dictionary<int, T> objectsByFiles;
-            AssetMappings.TryGetValue(folderId, out objectsByFiles);
-            if (objectsByFiles == null) return default(T);
+            AssetMappings.TryGetValue(folderId, out var objectsByFiles);
 
-            T obj;
-            objectsByFiles.TryGetValue(fileId, out obj);
+            if (objectsByFiles == null)
+            {
+                return default;
+            }
+
+            objectsByFiles.TryGetValue(fileId, out var obj);
 
             return obj;
         }
