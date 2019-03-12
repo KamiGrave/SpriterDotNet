@@ -9,7 +9,6 @@ Being a pure C# implementation, SpriterDotNet doesn't depend on any external lib
 
 ## Completed Plugins ##
 
-* [Unity](SpriterDotNet.Unity)
 * [MonoGame](SpriterDotNet.MonoGame)
 
 ## Supported Features ##
