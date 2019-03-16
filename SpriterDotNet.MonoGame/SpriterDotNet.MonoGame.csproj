@@ -11,7 +11,7 @@
     <PackageProjectUrl></PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/loodakrawa/SpriterDotNet/blob/develop/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/loodakrawa/SpriterDotNet</RepositoryUrl>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Company />
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
